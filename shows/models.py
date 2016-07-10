@@ -14,21 +14,20 @@ class Show(models.Model):
     def __str__(self):
         return self.show_name
 
+class Venue(models.Model):
+    venue_name = models.CharField(max_length=50)
+    venue_info = models.CharField(max_length=300)
+    venue_location = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.venue_name
+
 class Stage(models.Model):
     stage_name = models.CharField(max_length=50)
     stage_info = models.CharField(max_length=300)
     stage_image = models.ImageField()
     stage_shows = models.ManyToManyField(Show)
+    venue = models.ForeignKey(Venue, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.stage_name
-
-class Venue(models.Model):
-    venue_name = models.CharField(max_length=50)
-    venue_info = models.CharField(max_length=300)
-    venue_location = models.CharField(max_length=100)
-    venue_stages = models.ManyToManyField(Stage)
-
-    def __str__(self):
-        return self.venue_name
-
